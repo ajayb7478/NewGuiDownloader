@@ -114,6 +114,19 @@ window.iconbitmap("icon.ico")
 window.geometry("413x550")
 window.configure(bg = "#FFFFFF")
 
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# Calculate the x and y coordinates to center the window
+window_width = 413
+window_height = 550
+
+x_position = (screen_width - window_width) // 2
+y_position = (screen_height - window_height) // 2
+
+# Set the window to be centered
+window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
