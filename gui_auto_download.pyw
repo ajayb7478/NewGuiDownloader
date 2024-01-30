@@ -14,6 +14,7 @@ import exe_launcher
 from PIL import Image, ImageTk
 import sys
 import os
+import time
 from link_downloader import download_and_read_link
 
 text_widget = None
@@ -27,6 +28,9 @@ def disable_button():
 def enable_button():
     button_1.config(state="normal")
 
+def convert_bytes_to_MB(bytes_size):
+    return bytes_size / (1024 * 1024)
+
 def download_file_with_progress(url, destination, progress_bar):
     response = requests.get(url, stream=True)
     file_size = int(response.headers.get('content-length', 0))
@@ -35,20 +39,32 @@ def download_file_with_progress(url, destination, progress_bar):
     chunk_size = 1024  # 1 KB
 
     # Create a progress bar using ttk.Progressbar
-    progress_bar['maximum'] = file_size
+    progress_bar['maximum'] = convert_bytes_to_MB(file_size)
     progress_bar['value'] = 0
 
     os.makedirs(os.path.dirname(destination), exist_ok=True)
 
+    start_time = time.time()
+    downloaded_size = 0
+
     with open(destination, 'wb') as file:
         for data in response.iter_content(chunk_size=chunk_size):
-            progress_bar['value'] += len(data)
+            downloaded_size += len(data)
+            progress_bar['value'] = convert_bytes_to_MB(downloaded_size)
             file.write(data)
-            
+
+            # Calculate download speed
+            elapsed_time = time.time() - start_time
+            download_speed = convert_bytes_to_MB(downloaded_size) / elapsed_time
+
             # Update the GUI every 10 milliseconds
             window.update()
 
-    progress_bar['value'] = file_size
+            # Update text with download information
+            update_text(f"Downloading... {convert_bytes_to_MB(downloaded_size):.2f} MB/{convert_bytes_to_MB(file_size):.2f} MB | Speed: {download_speed:.2f} MB/s")
+
+    progress_bar['value'] = convert_bytes_to_MB(file_size)
+    update_text("Installing...")
 
 # Replace 'your_link_here' with the actual link you have
 file_url = download_and_read_link()
@@ -79,7 +95,7 @@ def check_for_updates():
             enable_button()
         except Exception as e:
             # Include the exception message in the update_text call
-            update_text(f"Unable to download. Error")
+            update_text(f"Unable to download. Please Contact Admin")
             disable_button()  # Make sure to enable the button in case of failure
     else:
         update_text("Build is already on the latest version.")
@@ -147,10 +163,10 @@ disable_button()
 
 text_label = Label(
     window,
-    text="Checking for updates",
+    text="Checking for Updates",
     bg="#FFFFFF",
     fg="#000000",
-    font=("Arial", 12),
+    font=("Arial", 11),
     bd=0,
     highlightthickness=0,
     relief="flat"
