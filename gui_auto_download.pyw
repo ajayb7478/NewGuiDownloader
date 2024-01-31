@@ -15,8 +15,10 @@ from PIL import Image, ImageTk
 import sys
 import os
 import time
-from link_downloader import download_and_read_link
+from link_downloader import download_the_link, link_reader
 
+download_the_link()
+time.sleep(2)
 text_widget = None
 
 def update_text(message):
@@ -67,10 +69,12 @@ def download_file_with_progress(url, destination, progress_bar):
     update_text("Installing...")
 
 # Replace 'your_link_here' with the actual link you have
-file_url = download_and_read_link()
 
+file_url = link_reader()
+#file_url = 'https://piepzw.bn.files.1drv.com/y4mApIzmeHipzc6z8mBq-zQqKOQU2efmm83UghY713_JxO-dyvIPFT2itOz7JYbfhNZhXHZdVMh65msQ4zzBzWrt-7rS4Jo6o5MiD2KEdFyzMJA9lJVVLqOP-ZWeuoYeQbY6c1n4JWttl5SuJtSfEhBXUeDz9vVdh--wbDB20fLsXUb-azdfRaM0-odwIErENmPIGLhAU4ANIUofWBzoIRjlA'
 # Specify the directory where the file should be saved
 download_directory = 'Downloads'
+
 
 # Specify the file name
 file_name = 'Rocket Flyer.zip'
@@ -108,8 +112,8 @@ def launch_game():
 
 window = Tk()
 window.title("")
-window.iconbitmap("icon.ico")
-#window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
+#window.iconbitmap("icon.ico")
+window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
 
 window.geometry("413x550")
 window.configure(bg = "#FFFFFF")
@@ -138,24 +142,24 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
-image_image_1 = PhotoImage(file="image_1.png")
-#image_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "image_1.png")
+#image_image_1 = PhotoImage(file="image_1.png")
+image_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "image_1.png")
 image_1 = canvas.create_image(
     206.0,
     37.0,
     image=image_image_1
 )
 
-image_image_2 = PhotoImage(file="image_2.png")
-#image_image_2 = PhotoImage(file=Path(sys._MEIPASS) / "image_2.png")
+#image_image_2 = PhotoImage(file="image_2.png")
+image_image_2 = PhotoImage(file=Path(sys._MEIPASS) / "image_2.png")
 image_2 = canvas.create_image(
     206.0,
     233.0,
     image=image_image_2
 )
 
-button_image_1 = PhotoImage(file="button_1.png")
-#button_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "button_1.png")
+#button_image_1 = PhotoImage(file="button_1.png")
+button_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "button_1.png")
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
@@ -186,13 +190,7 @@ text_label = Label(
 )
 text_label.place(x=10, y=420.0, width=413.0, height=30.0)
 
-canvas.create_rectangle(
-    0.0,
-    409.0,
-    413.0,
-    448.0,
-    fill="#ffffff",
-    outline="")
+canvas.create_rectangle(0.0,409.0,413.0,448.0,fill="#ffffff",outline="")
 
 update_text("Checking for updates")
 # Call check_for_updates after a delay (e.g., 100 milliseconds)
