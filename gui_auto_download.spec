@@ -5,7 +5,7 @@ a = Analysis(
     ['gui_auto_download.pyw'],
     pathex=[],
     binaries=[],
-    datas=[('icon.ico', '.'), ('button_1.png', '.'), ('image_1.png', '.'), ('image_2.png', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -34,5 +34,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon.ico'],
+    icon=['assets\\frame0\\icon.ico'],
 )
