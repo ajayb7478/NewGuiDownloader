@@ -38,7 +38,7 @@ def download_file_with_progress(url, destination, progress_bar):
     file_size = int(response.headers.get('content-length', 0))
 
     # Define the chunk size for downloading
-    chunk_size = 1024  # 1 KB
+    chunk_size = 65536  # 1 KB
 
     # Create a progress bar using ttk.Progressbar
     progress_bar['maximum'] = convert_bytes_to_MB(file_size)
@@ -69,7 +69,7 @@ def download_file_with_progress(url, destination, progress_bar):
     update_text("Installing...")
 
 # Replace 'your_link_here' with the actual link you have
-
+link_reader()
 file_url = link_reader()
 #file_url = 'https://piepzw.bn.files.1drv.com/y4mApIzmeHipzc6z8mBq-zQqKOQU2efmm83UghY713_JxO-dyvIPFT2itOz7JYbfhNZhXHZdVMh65msQ4zzBzWrt-7rS4Jo6o5MiD2KEdFyzMJA9lJVVLqOP-ZWeuoYeQbY6c1n4JWttl5SuJtSfEhBXUeDz9vVdh--wbDB20fLsXUb-azdfRaM0-odwIErENmPIGLhAU4ANIUofWBzoIRjlA'
 # Specify the directory where the file should be saved
@@ -112,8 +112,8 @@ def launch_game():
 
 window = Tk()
 window.title("")
-#window.iconbitmap("icon.ico")
-window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
+window.iconbitmap(r"assets\frame0\icon.ico")
+#window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
 
 window.geometry("413x550")
 window.configure(bg = "#FFFFFF")
@@ -142,24 +142,24 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
-#image_image_1 = PhotoImage(file="image_1.png")
-image_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "image_1.png")
+image_image_1 = PhotoImage(file=r"assets\frame0\image_1.png")
+#image_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "image_1.png")
 image_1 = canvas.create_image(
     206.0,
     37.0,
     image=image_image_1
 )
 
-#image_image_2 = PhotoImage(file="image_2.png")
-image_image_2 = PhotoImage(file=Path(sys._MEIPASS) / "image_2.png")
+image_image_2 = PhotoImage(file=r"assets\frame0\image_2.png")
+#image_image_2 = PhotoImage(file=Path(sys._MEIPASS) / "image_2.png")
 image_2 = canvas.create_image(
     206.0,
     233.0,
     image=image_image_2
 )
 
-#button_image_1 = PhotoImage(file="button_1.png")
-button_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "button_1.png")
+button_image_1 = PhotoImage(file=r"assets\frame0\button_1.png")
+#button_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "button_1.png")
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
