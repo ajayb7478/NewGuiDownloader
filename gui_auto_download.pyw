@@ -15,11 +15,16 @@ from PIL import Image, ImageTk
 import sys
 import os
 import time
-from link_downloader import download_the_link, link_reader
+from link_downloader import download_the_link, link_reader, download_the_assets
 
 download_the_link()
-time.sleep(2)
+download_the_assets()
+
 text_widget = None
+
+
+def folder_exists():
+    return os.path.exists("Downloads") and os.path.isdir("Downloads")
 
 def update_text(message):
     text_label.config(text=message)
@@ -71,7 +76,7 @@ def download_file_with_progress(url, destination, progress_bar):
 # Replace 'your_link_here' with the actual link you have
 link_reader()
 file_url = link_reader()
-#file_url = 'https://piepzw.bn.files.1drv.com/y4mApIzmeHipzc6z8mBq-zQqKOQU2efmm83UghY713_JxO-dyvIPFT2itOz7JYbfhNZhXHZdVMh65msQ4zzBzWrt-7rS4Jo6o5MiD2KEdFyzMJA9lJVVLqOP-ZWeuoYeQbY6c1n4JWttl5SuJtSfEhBXUeDz9vVdh--wbDB20fLsXUb-azdfRaM0-odwIErENmPIGLhAU4ANIUofWBzoIRjlA'
+
 # Specify the directory where the file should be saved
 download_directory = 'Downloads'
 
@@ -93,14 +98,14 @@ def check_for_updates():
             download_file_with_progress(file_url, destination_file_name, progress_bar)       
             update_text("Installing...")
             zip_extractor.unzipper()
-            automatic_deleter.delete_and_execute()
+            automatic_deleter.delete_download_folder()
             update_text("Build is now on the latest version.")
             progress_bar.destroy()
             enable_button()
         except Exception as e:
             # Include the exception message in the update_text call
             update_text(f"Unable to download. Please Contact Admin")
-            
+            automatic_deleter.delete_version_folder()
             disable_button()  # Make sure to enable the button in case of failure
     else:
         update_text("Build is already on the latest version.")
@@ -117,6 +122,7 @@ window.iconbitmap(r"assets\frame0\icon.ico")
 #window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
 
 window.geometry("413x550")
+#window.overrideredirect(True)
 window.configure(bg = "#FFFFFF")
 
 screen_width = window.winfo_screenwidth()
@@ -195,6 +201,11 @@ canvas.create_rectangle(0.0,409.0,413.0,448.0,fill="#ffffff",outline="")
 
 update_text("Checking for updates")
 # Call check_for_updates after a delay (e.g., 100 milliseconds)
-window.after(1000, check_for_updates)
+if folder_exists():
+    automatic_deleter.delete_version_folder()
+    automatic_deleter.delete_download_folder()
+    window.after(1000, check_for_updates)
+else:
+    window.after(1000, check_for_updates)
 window.resizable(False, False)
 window.mainloop()

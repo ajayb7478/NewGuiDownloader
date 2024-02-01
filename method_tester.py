@@ -6,14 +6,14 @@ import exe_launcher
 
 # Define the number of iterations
 
-automatic_deleter.delete_and_execute()
+automatic_deleter.delete_download_folder()
 
 if version_checker.check_version():
     print("New Build Available.")    
     print("Attempting to download the New Build using Browser")   
     selenium_auto_downloader.BrowserDownloader()     
     zip_extractor.unzipper()  
-    automatic_deleter.delete_and_execute()
+    automatic_deleter.delete_download_folder()
     input("Press Enter to Launch the game")
     exe_launcher.game_launcher_script()  
 else:    
