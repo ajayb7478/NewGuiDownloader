@@ -100,6 +100,7 @@ def check_for_updates():
         except Exception as e:
             # Include the exception message in the update_text call
             update_text(f"Unable to download. Please Contact Admin")
+            
             disable_button()  # Make sure to enable the button in case of failure
     else:
         update_text("Build is already on the latest version.")

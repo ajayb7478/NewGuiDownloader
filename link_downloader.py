@@ -3,10 +3,7 @@ import requests
 
 def download_the_link():
     # URL of the raw GitHub file
-    #github_url = "https://github.com/ajayb7478/ajayb7478.github.io/raw/main/link.txt"
-    github_url = "https://drive.usercontent.google.com/uc?id=16Prcr-h-o3yVuQK2yJnobvZ0_Tto4A82&export=download"
-    #https://drive.usercontent.google.com/uc?id=16Prcr-h-o3yVuQK2yJnobvZ0_Tto4A82&export=download  = link downloader
-    #https://drive.usercontent.google.com/download?id=10eHbV3t3lxGAQkpILwrMbAcwj7xMuL5A&export=download&authuser=0 actual file
+    github_url = "https://onedrive.live.com/download?resid=9CBDB867D8AC6621%215401&authkey=!AIo_jiFU2pbcruk"
     # Local path to save the downloaded file
     local_folder = "Link"
     local_path = os.path.join(local_folder, "link.txt")
