@@ -4,7 +4,7 @@ import requests
 def check_version():
     # URL of the raw GitHub file
     print("Checking for new Build.......")
-    github_url = "https://raw.githubusercontent.com/ajayb7478/ajayb7478.github.io/main/Version.txt"
+    github_url = "https://onedrive.live.com/download?resid=9CBDB867D8AC6621%215412&authkey=!AJsZwVVKvIyLxl0"
 
     # Local path to save the downloaded file
     local_folder = "Version"
