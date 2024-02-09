@@ -33,3 +33,21 @@ def check_version():
         return True
     else:
         return False
+
+def read_local_version():
+    """
+    Read the content of the local Version.txt file.
+
+    :return: Content of the Version.txt file, or None if the file doesn't exist.
+    """
+    local_folder = "Version"
+    local_path = os.path.join(local_folder, "Version.txt")
+
+    try:
+        with open(local_path, "r") as file:
+            content = file.read()
+            return content
+    except FileNotFoundError:
+        print("Version.txt file not found.")
+        return None
+

@@ -90,16 +90,15 @@ destination_file_name = os.path.join(download_directory, file_name)
 def check_for_updates():
     if version_checker.check_version():
         update_text("New Build Available. Downloading...")
-
         progress_bar = ttk.Progressbar(window, orient="horizontal", length=400, mode="determinate")
         progress_bar.place(x=5, y=460, width=400, height=20)
-
+        
         try:
             download_file_with_progress(file_url, destination_file_name, progress_bar)       
             update_text("Installing...")
             zip_extractor.unzipper()
             automatic_deleter.delete_download_folder()
-            update_text("Build is now on the latest version.")
+            update_text("Build is on the latest Version: " + version_checker.read_local_version())
             progress_bar.destroy()
             enable_button()
         except Exception as e:
@@ -108,7 +107,7 @@ def check_for_updates():
             automatic_deleter.delete_version_folder()
             disable_button()  # Make sure to enable the button in case of failure
     else:
-        update_text("Build is already on the latest version.")
+        update_text("Build is already on the latest Version: " + version_checker.read_local_version())
         enable_button()
 
 
@@ -117,7 +116,7 @@ def launch_game():
     exe_launcher.game_launcher_script()
 
 window = Tk()
-window.title("")
+window.title("Stellar Ascend Update Tool")
 window.iconbitmap(r"assets\frame0\icon.ico")
 #window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
 
