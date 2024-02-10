@@ -28,6 +28,9 @@ def folder_exists():
 
 def update_text(message):
     text_label.config(text=message)
+    
+def update_version_text(message):
+    text_label2.config(text=message)
 
 def disable_button():
     button_1.config(state="disabled")
@@ -90,6 +93,7 @@ destination_file_name = os.path.join(download_directory, file_name)
 def check_for_updates():
     if version_checker.check_version():
         update_text("New Build Available. Downloading...")
+        update_version_text("Updating")
         progress_bar = ttk.Progressbar(window, orient="horizontal", length=400, mode="determinate")
         progress_bar.place(x=5, y=460, width=400, height=20)
         
@@ -98,7 +102,8 @@ def check_for_updates():
             update_text("Installing...")
             zip_extractor.unzipper()
             automatic_deleter.delete_download_folder()
-            update_text("Build is on the latest Version: " + version_checker.read_local_version())
+            update_text("Build is now on the latest version")
+            update_version_text(version_checker.read_local_version())
             progress_bar.destroy()
             enable_button()
         except Exception as e:
@@ -107,7 +112,8 @@ def check_for_updates():
             automatic_deleter.delete_version_folder()
             disable_button()  # Make sure to enable the button in case of failure
     else:
-        update_text("Build is already on the latest Version: " + version_checker.read_local_version())
+        update_text("Build is already on the latest version")
+        update_version_text(version_checker.read_local_version())
         enable_button()
 
 
@@ -117,7 +123,7 @@ def launch_game():
 
 window = Tk()
 window.title("Stellar Ascend Update Tool")
-window.iconbitmap(r"assets\frame0\icon.ico")
+window.iconbitmap(r"assets/frame0/icon.ico")
 #window.iconbitmap(default=sys._MEIPASS + "/icon.ico")
 
 window.geometry("413x550")
@@ -148,7 +154,7 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
-image_image_1 = PhotoImage(file=r"assets\frame0\image_1.png")
+image_image_1 = PhotoImage(file="assets/frame0/image_1.png")
 #image_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "image_1.png")
 image_1 = canvas.create_image(
     206.0,
@@ -156,7 +162,7 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-image_image_2 = PhotoImage(file=r"assets\frame0\image_2.png")
+image_image_2 = PhotoImage(file="assets/frame0/image_2.png")
 #image_image_2 = PhotoImage(file=Path(sys._MEIPASS) / "image_2.png")
 image_2 = canvas.create_image(
     206.0,
@@ -164,7 +170,7 @@ image_2 = canvas.create_image(
     image=image_image_2
 )
 
-button_image_1 = PhotoImage(file=r"assets\frame0\button_1.png")
+button_image_1 = PhotoImage(file="assets/frame0/button_1.png")
 #button_image_1 = PhotoImage(file=Path(sys._MEIPASS) / "button_1.png")
 button_1 = Button(
     image=button_image_1,
@@ -174,12 +180,7 @@ button_1 = Button(
     relief="flat"
 )
 
-button_1.place(
-    x=89.0,
-    y=500.0,
-    width=235.0,
-    height=38.0
-)
+button_1.place(x=89.0,y=500.0,width=235.0,height=38.0)
 
 disable_button()
 
@@ -188,13 +189,25 @@ text_label = Label(
     window,
     text="Checking for Updates",
     bg="#FFFFFF",
-    fg="#000000",
-    font=("Arial", 11),
+    fg="#063b71",
+    font=("Calibri", 12),
     bd=0,
     highlightthickness=0,
     relief="flat"
 )
 text_label.place(x=10, y=420.0, width=413.0, height=30.0)
+
+text_label2 = Label(
+    window,
+    text="0.0.0",
+    bg="#FFFFFF",
+    fg="#000000",
+    font=("Arial", 10),
+    bd=0,
+    highlightthickness=0,
+    relief="flat"
+)
+text_label2.place(relx=1.0, rely=1.0, anchor='se', x=-2, y=-2)
 
 canvas.create_rectangle(0.0,409.0,413.0,448.0,fill="#ffffff",outline="")
 
